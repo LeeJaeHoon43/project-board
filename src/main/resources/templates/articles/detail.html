@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>게시글 페이지</title>
+</head>
+<body>
+
+<header id="header"></header>
+
+<main>
+    <header>
+        <h1>첫번째 글</h1>
+    </header>
+
+    <aside>
+        <p>admin</p>
+        <p><a href="malito:admin@gmail.com">admin@gmail.com</a></p>
+        <p><time datetime="2022-11-08T00:00:00">2022-11-08</time></p>
+        <p>#java</span></p>
+    </aside>
+
+    <section>
+        <p>본문<br><br></p>
+
+        <div>
+            <form>
+                <label for="articleComment" hidden>댓글</label>
+                <textarea id="articleComment" placeholder="댓글 쓰기.." rows="3"></textarea>
+                <button type="submit">쓰기</button>
+            </form>
+
+            <ul>
+                <li>
+                    <div>
+                        <time><small>2022-11-08</small></time>
+                        <strong>admin</strong>
+                        <o>
+                            댓글 테스트2
+                        </o>
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <time><small>2022-11-07</small></time>
+                        <strong>admin</strong>
+                        <o>
+                            댓글 테스트1
+                        </o>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <nav>
+            <a href="#">이전 글</a>
+            <a href="#">다음 글</a>
+        </nav>
+    </section>
+</main>
+
+<footer id="footer"></footer>
+</body>
+</html>
