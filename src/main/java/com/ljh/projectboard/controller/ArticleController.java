@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
-@RequestMapping("/")
+@RequestMapping("/articles")
 @Controller
 public class ArticleController {
 
