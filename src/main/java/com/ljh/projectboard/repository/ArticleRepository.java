@@ -1,7 +1,6 @@
 package com.ljh.projectboard.repository;
 
 import com.ljh.projectboard.domain.Article;
-import com.ljh.projectboard.domain.ArticleComment;
 import com.ljh.projectboard.domain.QArticle;
 import com.querydsl.core.types.dsl.DateTimeExpression;
 import com.querydsl.core.types.dsl.StringExpression;
@@ -12,13 +11,16 @@ import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.querydsl.binding.QuerydslBinderCustomizer;
 import org.springframework.data.querydsl.binding.QuerydslBindings;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
-import java.util.List;
 
 @RepositoryRestResource
 public interface ArticleRepository extends JpaRepository<Article, Long>,
         QuerydslPredicateExecutor<Article>, QuerydslBinderCustomizer<QArticle> {
 
-    Page<Article> findByTitle(String title, Pageable pageable);
+    Page<Article> findByTitleContaining(String title, Pageable pageable);
+    Page<Article> findByContentContaining(String content, Pageable pageable);
+    Page<Article> findByUserAccount_UserIdContaining(String userId, Pageable pageable);
+    Page<Article> findByUserAccount_NicknameContaining(String nickname, Pageable pageable);
+    Page<Article> findByHashtag(String hashtag, Pageable pageable);
 
     @Override
     default void customize(QuerydslBindings bindings, QArticle root){
