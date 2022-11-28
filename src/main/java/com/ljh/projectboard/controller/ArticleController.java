@@ -1,6 +1,7 @@
 package com.ljh.projectboard.controller;
 
-import com.ljh.projectboard.domain.type.SearchType;
+import com.ljh.projectboard.constant.FormStatus;
+import com.ljh.projectboard.constant.SearchType;
 import com.ljh.projectboard.response.ArticleResponse;
 import com.ljh.projectboard.response.ArticleWithCommentsResponse;
 import com.ljh.projectboard.service.ArticleService;
@@ -43,7 +44,7 @@ public class ArticleController {
 
     @GetMapping("/{articleId}")
     public String article(@PathVariable Long articleId, ModelMap map){
-        ArticleWithCommentsResponse article = ArticleWithCommentsResponse.from(articleService.getArticle(articleId));
+        ArticleWithCommentsResponse article = ArticleWithCommentsResponse.from(articleService.getArticleWithComments(articleId));
         map.addAttribute("article", article);
         map.addAttribute("articleComments", article.articleCommentsResponse());
         map.addAttribute("totalCount", articleService.getArticleCount());
@@ -51,7 +52,7 @@ public class ArticleController {
     }
 
     @GetMapping("/search-hashtag")
-    public String searchHashtag(
+    public String searchArticleHashtag(
             @RequestParam(required = false) String searchValue ,
             @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable,
             ModelMap map
@@ -65,5 +66,11 @@ public class ArticleController {
         map.addAttribute("paginationBarNumbers", barNumbers);
         map.addAttribute("searchType", SearchType.HASHTAG);
         return "articles/search-hashtag";
+    }
+
+    @GetMapping("/form")
+    public String articleForm(ModelMap map){
+        map.addAttribute("formStatus", FormStatus.CREATE);
+        return "articles/form";
     }
 }
