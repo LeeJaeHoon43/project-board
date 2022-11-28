@@ -1,4 +1,4 @@
-package com.ljh.projectboard.domain.type;
+package com.ljh.projectboard.constant;
 
 import lombok.Getter;
 
