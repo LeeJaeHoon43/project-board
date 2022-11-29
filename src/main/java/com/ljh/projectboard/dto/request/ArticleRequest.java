@@ -1,4 +1,4 @@
-package com.ljh.projectboard.request;
+package com.ljh.projectboard.dto.request;
 
 import com.ljh.projectboard.dto.ArticleDto;
 import com.ljh.projectboard.dto.UserAccountDto;
