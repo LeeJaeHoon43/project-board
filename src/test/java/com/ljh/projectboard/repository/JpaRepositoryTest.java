@@ -32,13 +32,15 @@ class JpaRepositoryTest {
     @DisplayName("select 테스트")
     @Test
     void givenTestData_whenSelecting_thenWorksFine(){
-        // given
+        // Given
 
-        // when
+        // When
         List<Article> articles = articleRepository.findAll();
 
-        // then
-        assertThat(articles).isNotNull().hasSize(123);
+        // Then
+        assertThat(articles)
+                .isNotNull()
+                .hasSize(123); // classpath:resources/data.sql 참조
     }
 
     @DisplayName("insert 테스트")
@@ -75,17 +77,17 @@ class JpaRepositoryTest {
     @DisplayName("delete 테스트")
     @Test
     void givenTestData_whenDeleting_thenWorksFine(){
-        // given
+        // Given
         Article article = articleRepository.findById(1L).orElseThrow();
         long previousArticleCount = articleRepository.count();
         long previousArticleCommentCount = articleCommentRepository.count();
-        int deletedCommentSize = article.getArticleComments().size();
+        int deletedCommentsSize = article.getArticleComments().size();
 
-        // when
+        // When
         articleRepository.delete(article);
 
-        // then
+        // Then
         assertThat(articleRepository.count()).isEqualTo(previousArticleCount - 1);
-        assertThat(articleCommentRepository.count()).isEqualTo(previousArticleCommentCount - deletedCommentSize);
+        assertThat(articleCommentRepository.count()).isEqualTo(previousArticleCommentCount - deletedCommentsSize);
     }
 }
