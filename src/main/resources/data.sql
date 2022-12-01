@@ -1,9 +1,10 @@
 -- 테스트 계정
+-- TODO: 테스트용이지만 비밀번호가 노출된 데이터 세팅. 개선하는 것이 좋을 지 고민.
 insert into user_account (user_id, user_password, nickname, email, memo, created_at, created_by, modified_at, modified_by)
-values ('admin', 'admin1111', 'Admin', 'admin@mail.com', 'I am Admin.', now(), 'admin', now(), 'admin');
+values ('admin', '{noop}admin1111', 'Admin', 'admin@mail.com', 'I am Admin.', now(), 'admin', now(), 'admin');
 
 insert into user_account (user_id, user_password, nickname, email, memo, created_at, created_by, modified_at, modified_by)
-values ('admin2', 'admin1234', 'admin2', 'admin2@mail.com', 'I am Admin2.', now(), 'admin2', now(), 'admin2');
+values ('admin2', '{noop}admin1234', 'admin2', 'admin2@mail.com', 'I am Admin2.', now(), 'admin2', now(), 'admin2');
 
 -- 123 게시글
 insert into article (user_id, title, content, hashtag, created_by, modified_by, created_at, modified_at) values

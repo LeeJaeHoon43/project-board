@@ -17,6 +17,7 @@ public interface ArticleCommentRepository extends JpaRepository<ArticleComment,
         Long>, QuerydslPredicateExecutor<ArticleComment>, QuerydslBinderCustomizer<QArticleComment> {
 
     List<ArticleComment> findByArticle_Id(Long articleId);
+    void deleteByIdAndUserAccount_UserId(Long articleId, String userid);
 
     @Override
     default void customize(QuerydslBindings bindings, QArticleComment root){

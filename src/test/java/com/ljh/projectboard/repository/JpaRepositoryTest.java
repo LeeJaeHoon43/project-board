@@ -1,18 +1,23 @@
 package com.ljh.projectboard.repository;
 
-import com.ljh.projectboard.config.JpaConfig;
 import com.ljh.projectboard.domain.Article;
 import com.ljh.projectboard.domain.UserAccount;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
+import org.springframework.data.domain.AuditorAware;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import java.util.List;
+import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.*;
 
 @DisplayName("JPA 연결 테스트")
-@Import(JpaConfig.class)
+@Import(JpaRepositoryTest.TestJpaConfig.class)
 @DataJpaTest
 class JpaRepositoryTest {
 
@@ -23,7 +28,7 @@ class JpaRepositoryTest {
     public JpaRepositoryTest(
             @Autowired ArticleRepository articleRepository,
             @Autowired ArticleCommentRepository articleCommentRepository,
-            UserAccountRepository userAccountRepository) {
+            @Autowired UserAccountRepository userAccountRepository) {
         this.articleRepository = articleRepository;
         this.articleCommentRepository = articleCommentRepository;
         this.userAccountRepository = userAccountRepository;
@@ -32,13 +37,15 @@ class JpaRepositoryTest {
     @DisplayName("select 테스트")
     @Test
     void givenTestData_whenSelecting_thenWorksFine(){
-        // given
+        // Given
 
-        // when
+        // When
         List<Article> articles = articleRepository.findAll();
 
-        // then
-        assertThat(articles).isNotNull().hasSize(123);
+        // Then
+        assertThat(articles)
+                .isNotNull()
+                .hasSize(123); // classpath:resources/data.sql 참조
     }
 
     @DisplayName("insert 테스트")
@@ -75,17 +82,26 @@ class JpaRepositoryTest {
     @DisplayName("delete 테스트")
     @Test
     void givenTestData_whenDeleting_thenWorksFine(){
-        // given
+        // Given
         Article article = articleRepository.findById(1L).orElseThrow();
         long previousArticleCount = articleRepository.count();
         long previousArticleCommentCount = articleCommentRepository.count();
-        int deletedCommentSize = article.getArticleComments().size();
+        int deletedCommentsSize = article.getArticleComments().size();
 
-        // when
+        // When
         articleRepository.delete(article);
 
-        // then
+        // Then
         assertThat(articleRepository.count()).isEqualTo(previousArticleCount - 1);
-        assertThat(articleCommentRepository.count()).isEqualTo(previousArticleCommentCount - deletedCommentSize);
+        assertThat(articleCommentRepository.count()).isEqualTo(previousArticleCommentCount - deletedCommentsSize);
+    }
+
+    @EnableJpaAuditing
+    @TestConfiguration
+    public static class TestJpaConfig{
+        @Bean
+        public AuditorAware<String> auditorAware() {
+            return () -> Optional.of("admin");
+        }
     }
 }
