@@ -1,7 +1,7 @@
 package com.ljh.projectboard.controller;
 
-import com.ljh.projectboard.constant.FormStatus;
-import com.ljh.projectboard.constant.SearchType;
+import com.ljh.projectboard.domain.constant.FormStatus;
+import com.ljh.projectboard.domain.constant.SearchType;
 import com.ljh.projectboard.dto.request.ArticleRequest;
 import com.ljh.projectboard.dto.response.ArticleResponse;
 import com.ljh.projectboard.dto.response.ArticleWithCommentsResponse;
